@@ -45,9 +45,13 @@ namespace ExperienceWithSeleniumWeb
             travelPage.SelectDestination("Monroe");
             travelPage.ChoosePassanger("1");
             travelPage.ClickSearchButton();
-
-            //_wait.Until(d => d.FindElement(By.XPath("//*[@id='all_flights']")));
-            driver.FindElement(By.XPath("//*[@id='all_flights']/div[1]")).Click();
+            
+            if(!driver.FindElement(By.XPath("//*[contains(text(),'Data Not Found')]")).Displayed)
+            {
+                wait.Until(d => d.FindElement(By.XPath("//*[@id='all_flights']")));
+                driver.FindElement(By.XPath("//*[@id='all_flights']/div[1]")).Click();
+            }
+            
             Thread.Sleep(10000);
         }
 
