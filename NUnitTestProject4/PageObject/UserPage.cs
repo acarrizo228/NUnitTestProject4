@@ -7,7 +7,7 @@ namespace ExperienceWithSeleniumWeb
     class UserPage
     {
 
-        By FlightElement = By.XPath("//span[contains(text(),'Flights')]/..");
+        By FlightElement = By.XPath("//span[contains(text(),'Flights')]");
 
         private IWebDriver driver;
 

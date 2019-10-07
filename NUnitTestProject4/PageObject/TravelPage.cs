@@ -11,18 +11,19 @@ namespace ExperienceWithSeleniumWeb
         By ButtonMyAccount = By.XPath("//nav[contains(@class,'navbar')]//*[contains(text(),'My Account')]");
         By ButtonLogin = By.XPath("//nav[contains(@class,'navbar')]//a[contains(text(),'Login')]");
         By Forma = By.Id("thflights");
-        By InputOrigin = By.XPath(".//input[@id='origin']/..//input");
-        By InputDestination = By.XPath(".//input[@id='destination']/..//input");
+        By InputOrigin = By.XPath(".//input[@id='origin']");
+        By InputDestination = By.XPath(".//input[@id='destination']");
         By InputPassanger = By.XPath(".//*[@name='totalManualPassenger']");
-        By SearchButton = By.XPath("//*[@id='thflights']//div[@class='clearfix']/../button");
+        By SearchButton = By.XPath(".//div[contains(@class,'search-button')]//button");
+        By SelectDropDown = By.XPath("//li[@class='select2-results-dept-0 select2-result select2-result-selectable']");
 
         private IWebDriver Driver { get; set; }
-        private WebDriverWait wait { get; set; }
+        private WebDriverWait Wait { get; set; }
 
         public TravelPage(IWebDriver driver, WebDriverWait wait)
         {
             this.Driver = driver;
-            this.wait = wait;
+            this.Wait = wait;
 
         }
 
@@ -36,15 +37,13 @@ namespace ExperienceWithSeleniumWeb
         public void SelectOrigin(String text)
         {
             Driver.FindElement(Forma).FindElement(InputOrigin).SendKeys(text);
-            wait.Until(d => d.FindElement(By.XPath("//*[contains(text(),'East')]")));
-            Driver.FindElement(By.XPath("//*[contains(text(),'East')]")).Click();
+            SelectDropDownElement();
         }
 
         public void SelectDestination(String text)
         {
             Driver.FindElement(Forma).FindElement(InputDestination).SendKeys(text);
-            wait.Until(d => d.FindElement(By.XPath("//*[contains(text(),'New York')]")));
-            Driver.FindElement(By.XPath("//*[contains(text(),'New York')]")).Click();
+            SelectDropDownElement();
         }
 
         public void ChoosePassanger(String number)
@@ -53,7 +52,13 @@ namespace ExperienceWithSeleniumWeb
         }
         public void ClickSearchButton()
         {
-            Driver.FindElement(SearchButton).Click();
+            Driver.FindElement(Forma).FindElement(SearchButton).Click();
+        }
+
+        public void SelectDropDownElement()
+        {
+            Wait.Until(d => d.FindElement(SelectDropDown));
+            Driver.FindElement(SelectDropDown).Click();
         }
     }
 }

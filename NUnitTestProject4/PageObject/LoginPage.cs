@@ -18,10 +18,10 @@ namespace ExperienceWithSeleniumWeb
             this.driver = driver;
         }
 
-        public void Login(String username, String passwd)
+        public void Login(String username, String password)
         {
             driver.FindElement(UserName).SendKeys(username);
-            driver.FindElement(Password).SendKeys(passwd);
+            driver.FindElement(Password).SendKeys(password);
 
             driver.FindElement(LoginButton).Click();
         }
