@@ -2,12 +2,12 @@
 using OpenQA.Selenium.Support.PageObjects;
 using System;
 
-namespace ExperienceWithSeleniumWeb
+namespace NUnitTestProject4.PageObject
 {
     class UserPage
     {
 
-        By FlightElement = By.XPath("//span[contains(text(),'Flights')]");
+        By FlightElement = By.XPath("//span[contains(text(),'Tours')]");
 
         private IWebDriver driver;
 

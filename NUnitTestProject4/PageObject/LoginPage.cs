@@ -2,7 +2,7 @@
 using OpenQA.Selenium.Support.PageObjects;
 using System;
 
-namespace ExperienceWithSeleniumWeb
+namespace NUnitTestProject4.PageObject
 {
     class LoginPage
     {
