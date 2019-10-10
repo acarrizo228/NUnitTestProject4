@@ -70,8 +70,6 @@ namespace NUnitTestProject4
                 wait.Until(d => d.FindElement(By.XPath("//*[@id='all_flights']")));
                 driver.FindElement(By.XPath("//*[@id='all_flights']/div[1]")).Click();
             }*/
-
-            Thread.Sleep(10000);
         }
 
         /*private void ClickSearchButton()
