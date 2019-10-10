@@ -13,9 +13,12 @@ namespace NUnitTestProject4.PageObject
         By TotalCost = By.XPath("//span[@class='displaytotal']");
         By ButtonBookNow = By.XPath("//form[@role='search']//button");
         By LoggedForm = By.XPath("//form[@id='loggedform']"); 
-        By InputFirstName = By.XPath(".//label[contains(text(),'First Name')]/..//input[@class='form-control']");
+        By InputFirstName = By.XPath("//label[contains(text(),'First Name')]");
         By ConfirmButtonBooking = By.XPath("//button[contains(text(),'CONFIRM THIS BOOKING')]");
-        By InputLastName = By.XPath(".//label[contains(text(),'Last Name')]/..//input[@class='form-control']");
+        By InputLastName = By.XPath("//label[contains(text(),'Last Name')]");
+        By FormControl = By.XPath("./following-sibling::input");
+        By Terms = By.CssSelector("#terms");
+        By Footer = By.CssSelector("#footer");
         private IWebDriver Driver { get; set; }
         private WebDriverWait Wait { get; set; }
         public PageBookTour(IWebDriver driver, WebDriverWait wait)
@@ -33,30 +36,33 @@ namespace NUnitTestProject4.PageObject
 
         public void ClickBookNow()
         {
-            Actions actions = new Actions(Driver);
-            actions.MoveToElement(Driver.FindElement(By.CssSelector("#terms")));
-            actions.Perform();
+            ScrollPage(Terms);
             Driver.FindElement(ButtonBookNow).Click();
         }
 
         public String GetFirsName()
         {
-            String result = Driver.FindElement(LoggedForm).FindElement(InputFirstName).GetAttribute("value").ToString();
+            String result = Driver.FindElement(InputFirstName).FindElement(FormControl).GetAttribute("value").ToString();
             return result;
         }
 
         public String GetLastName()
         {
-            String result = Driver.FindElement(LoggedForm).FindElement(InputLastName).GetAttribute("value").ToString();
+            String result = Driver.FindElement(InputLastName).FindElement(FormControl).GetAttribute("value").ToString();
             return result;
         }
 
         public void ConfirmBooking()
         {
-            Actions actions = new Actions(Driver);
-            actions.MoveToElement(Driver.FindElement(By.CssSelector("#footer")));
-            actions.Perform();
+            ScrollPage(Footer);
             Driver.FindElement(ConfirmButtonBooking).Click();
+        }
+
+        public void ScrollPage(By selector)
+        {
+            Actions actions = new Actions(Driver);
+            actions.MoveToElement(Driver.FindElement(selector));
+            actions.Perform();
         }
     }
 }

@@ -2,6 +2,7 @@
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.PageObjects;
 using OpenQA.Selenium.Support.UI;
+using System.Linq;
 using System;
 
 namespace NUnitTestProject4.PageObject
@@ -9,9 +10,10 @@ namespace NUnitTestProject4.PageObject
     class TourPage
     {
         By Forma = By.Id("tours");
-        By InputSearchTour = By.XPath("//*[@id='txtsearch']/..//a[contains(@class,'select2-choice')]");
-        By SelectDropDown = By.XPath("//li[@class='select2-results-dept-1 select2-result select2-result-selectable']");
+        By InputSearchTour = By.XPath("//input[@id='txtsearch']/parent::div//a[contains(@class,'select2-choice')]");
+        By SelectDropDown = By.XPath("//div[contains(text(),'Tours')]/following-sibling::ul/li");
         By SearchButton = By.XPath(".//div[contains(@class,'search-button')]//button");
+       
         private IWebDriver Driver { get; set; }
         private WebDriverWait Wait { get; set; }
 
@@ -30,14 +32,22 @@ namespace NUnitTestProject4.PageObject
 
         public void ChooseGuest(String number)
         {
-            SelectElement element = new SelectElement(Driver.FindElement(By.XPath("//select[@name='adults']")));
-            //element.SelectByText("1 Guest");
-            element.SelectByIndex(1);
+            var rand = new Random();
+            var elements = Driver.FindElement(By.XPath("//select[@name='adults']")).FindElements(By.XPath("./options"));
+            var length = elements.Count();
+            var i = rand.Next(0, length);
+            SelectElement select = new SelectElement(Driver.FindElement(By.CssSelector("#tourtype")));
+            select.SelectByIndex(i);
         }
         public void ChooseTourType()
         {
-            SelectElement element = new SelectElement(Driver.FindElement(By.XPath("//select[@id='tourtype']")));
-            element.SelectByIndex(2); 
+            var rand = new Random();
+            var elements = Driver.FindElement(By.CssSelector("#tourtype")).FindElements(By.XPath("./options"));
+            var length = elements.Count();
+            var i = rand.Next(0, length);
+            SelectElement select = new SelectElement(Driver.FindElement(By.CssSelector("#tourtype")));
+            select.SelectByIndex(i);
+
         }
 
         public void ClickSearchButton()

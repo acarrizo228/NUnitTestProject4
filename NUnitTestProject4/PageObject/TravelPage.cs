@@ -11,11 +11,11 @@ namespace NUnitTestProject4.PageObject
         By ButtonMyAccount = By.XPath("//nav[contains(@class,'navbar')]//*[contains(text(),'My Account')]");
         By ButtonLogin = By.XPath("//nav[contains(@class,'navbar')]//a[contains(text(),'Login')]");
         By Forma = By.Id("thflights");
-        By InputOrigin = By.XPath("//input[@id='origin']/..");
-        By InputDestination = By.XPath("//input[@id='destination']/..");
+        By InputOrigin = By.XPath("//input[@id='origin']/parent::div");
+        By InputDestination = By.XPath("//input[@id='destination']/parent::div");
         By InputPassanger = By.XPath(".//*[@name='totalManualPassenger']");
         By SearchButton = By.XPath(".//div[contains(@class,'search-button')]//button");
-        By SelectDropDown = By.XPath("//li[@class='select2-results-dept-0 select2-result select2-result-selectable select2-highlighted']");
+        By SelectDropDown = By.XPath("//ul[@class='select2-results']/li");
 
         private IWebDriver Driver { get; set; }
         private WebDriverWait Wait { get; set; }

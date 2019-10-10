@@ -10,12 +10,7 @@ namespace NUnitTestProject4.PageObject
 {
     class InvoicePage
     {
-
-        By UserName = By.Name("username");
-        By Password = By.Name("password");
-        By LoginButton = By.XPath("//button[contains(text(),'Login')]");
-
-        By FormInvoice = By.XPath("//table[@id='invoiceTable']//div[contains(text(),'Customer Details')]/..");
+        By InvoiceTable = By.XPath("//table[@id='invoiceTable']");
         By PersonalInformation = By.XPath(".//div[contains(text(),'User')]");
 
         private IWebDriver Driver { get; set; }
@@ -27,13 +22,12 @@ namespace NUnitTestProject4.PageObject
             this.Wait = wait;
         }
 
-        public void AssertPersonalInformation(String username, String lastname)
+        public String GetPersonalInformation(String username, String lastname)
         {
-            Wait.Until(d => d.FindElement(FormInvoice));
+            Wait.Until(d => d.FindElement(InvoiceTable));
 
-            var result = Driver.FindElement(FormInvoice).FindElement(PersonalInformation).Text.ToString();
-            Assert.AreEqual(result.ToLower(), username.ToLower() + " " + lastname.ToLower());
-            
+            return Driver.FindElement(InvoiceTable).FindElement(PersonalInformation).Text.ToString();
+
         }
 
     }
