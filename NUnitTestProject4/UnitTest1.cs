@@ -39,6 +39,8 @@ namespace NUnitTestProject4
             TourPage tourPage = new TourPage(driver, wait);
             PageBookTour pageBookTour = new PageBookTour(driver, wait);
 
+            InvoicePage invoicePage = new InvoicePage(driver, wait);
+
             String login = "user@phptravels.com";
             String password = "demouser";
 
@@ -50,12 +52,14 @@ namespace NUnitTestProject4
             tourPage.ChooseGuest("1");
             tourPage.ChooseTourType();
             tourPage.ClickSearchButton();
-            //var cost = pageBookTour.GetTotalCost();
-            //Assert.AreEqual(cost, "120");
 
             pageBookTour.ClickBookNow();
-            pageBookTour.AssertFirsName("Demo");
-            pageBookTour.AssertLastName("User");
+            var username = pageBookTour.GetFirsName();
+            var lastname = pageBookTour.GetLastName();
+            var cost = pageBookTour.GetTotalCost();
+            pageBookTour.ConfirmBooking();
+
+            invoicePage.AssertPersonalInformation(username, lastname);
             //travelPage.SelectOrigin("London");
             //travelPage.SelectDestination("Monroe");
             //travelPage.ChoosePassanger("1");
