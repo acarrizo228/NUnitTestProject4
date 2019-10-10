@@ -30,13 +30,9 @@ namespace NUnitTestProject4.PageObject
         public void AssertPersonalInformation(String username, String lastname)
         {
             Wait.Until(d => d.FindElement(FormInvoice));
-            // Driver.FindElement(FormInvoice).FindElement(By.XPath(".//"))
-            //var listOfInformation = Driver.FindElements(FormInvoice).Where(d => d.Text.Contains("DEMO USER")).ToList(); ;
-            //var elemetts = listOfInformation.Where(d => d.Text.Contains("DEMO USER")).ToList();
 
-            //var div = listOfInformation.Where(t => t.GetAttribute("text").Contains(username)).ToList();
-            var test = Driver.FindElement(FormInvoice).FindElement(PersonalInformation).Text.ToString();
-            Assert.AreEqual(test.ToLower(), username.ToLower() + " " + lastname.ToLower());
+            var result = Driver.FindElement(FormInvoice).FindElement(PersonalInformation).Text.ToString();
+            Assert.AreEqual(result.ToLower(), username.ToLower() + " " + lastname.ToLower());
             
         }
 
